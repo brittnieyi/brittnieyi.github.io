@@ -1,6 +1,6 @@
 ---
 title: "Final project report"
-author: "Siting Lin, Nitin Jenson ,Brittnie Yi"
+author: "Siting Lin, Nitin Jenson, Brittnie Yi"
 output: html_notebook
 ---
 
