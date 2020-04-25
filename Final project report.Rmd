@@ -10,17 +10,20 @@ How do external, geographic factors, and pre-existing medical conditions affect 
 
 ### Primary data:
 
-https://www.worldometers.info/coronavirus/
+This dataset is taken from https://www.worldometers.info/coronavirus/
+The .CSV file for this dataset is called worldomemtersData.csv in the Github Repo.
 
 ### Secondary data:
 
-https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3551445/
+This dataset is taken from https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3551445/
+The .CSV file for this dataset is called ICUnumbers.csv in the Github Repo.
 
-https://www.kaggle.com/folaraz/world-countries-and-continents-details
+This dataset is taken from https://www.kaggle.com/folaraz/world-countries-and-continents-details
+The .CSV file for this dataset is called countries and continents.csv in the Github Repo.
 
 
 ```{r}
-#load all packages needed
+# Load all packages needed
 library(tidyverse)
 library(ggplot2)
 library(DataComputing)
@@ -35,7 +38,6 @@ library(readr)
 file_name <- file.choose() 
 Worldmeters_data <- 
   data.table::fread(file_name)  
-
 Worldmeters_data
 
 file_name2 <- file.choose() 
@@ -49,13 +51,24 @@ Continents <-
 Continents
 ```
 
+```{r}
+# Inspection of imported data before analysis
+# Using the function str() helps us see the structure of each dataset, such as its variables and variable types. 
+
+str(Worldmeters_data)
+str(ICUnumbers)
+str(Continents)
+```
+
+The World Meters dataset contains 212 observations, 12 variables, and most of these variables are of 'chr' type besides the variable Deaths/1Mpop. The ICU numbers dataset contains 14 observations and 4 variables of different types. The Continents dataset contains 251 observations, which are all the different countries, and 27 variables.
 
 ```{r}
-#clean the data going to use
-ICUnew<-
-  ICUnumbers%>%
-  rename(Healthcare_cost='Per Capita Healthcare Cost**')%>% #rename the variable's name for easy use
-  mutate(Healthcare_cost= gsub(pattern = "[$]", replacement = " ",Healthcare_cost))%>% #edit all regular expression
+# This step cleans the data that we are going to use for analysis
+
+ICUnew <-
+  ICUnumbers %>%
+  rename( Healthcare_cost = 'Per Capita Healthcare Cost**' ) %>% #rename the variable's name for easy use
+  mutate( Healthcare_cost = gsub(pattern = "[$]", replacement = " ",Healthcare_cost))%>% #edit all regular expression
   rename('ICUbeds'='ICU beds per 100,000 people')#For easy use, abbreviate the variable's name
 ICUnew
 #rename the variables in the data frame that make the variable names easy to use, and arrange the variables that going to use next

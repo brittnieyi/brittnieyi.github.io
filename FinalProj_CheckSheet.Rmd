@@ -22,6 +22,7 @@ output:  html_notebook
 
 (B) .Rmd Line numbers for inspecting data intake:  
 
+Lines 55-64
 
 ### Data Wrangling (5 out of 8 required)
 
