@@ -9,9 +9,13 @@ output: html_notebook
 How do external, geographic factors, and pre-existing medical conditions affect the number of cases and death rates from the Coronavirus infection?
 
 ### Primary data:
+
 https://www.worldometers.info/coronavirus/
-### Second data:
+
+### Secondary data:
+
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3551445/
+
 https://www.kaggle.com/folaraz/world-countries-and-continents-details
 
 
@@ -26,7 +30,8 @@ library(readr)
 ```
 
 ```{r}
-#load primary data, since this data will be uploaded everday, so we choose the day that we finish preliminary as the last day
+# This step loads the primary and secondary datasets. Since the primary data will be updated everday, we chose to use data from the day that we finished the preliminary EDA.
+
 file_name <- file.choose() 
 Worldmeters_data <- 
   data.table::fread(file_name)  
