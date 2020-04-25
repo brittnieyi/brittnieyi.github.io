@@ -1,6 +1,6 @@
 ---
 title: "Final project report"
-author: "Siting Lin, Nitin Jenson ,Brittnie Yi"
+author: "Siting Lin, Nitin Jenson, Brittnie Yi"
 output: html_notebook
 ---
 
@@ -67,38 +67,40 @@ The World Meters dataset contains 212 observations, 12 variables, and most of th
 
 ICUnew <-
   ICUnumbers %>%
-  rename( Healthcare_cost = 'Per Capita Healthcare Cost**' ) %>% #rename the variable's name for easy use
-  mutate( Healthcare_cost = gsub(pattern = "[$]", replacement = " ",Healthcare_cost))%>% #edit all regular expression
-  rename('ICUbeds'='ICU beds per 100,000 people')#For easy use, abbreviate the variable's name
+  rename( Healthcare_cost = 'Per Capita Healthcare Cost**' ) %>% # Rename the variable for easy use
+  mutate( Healthcare_cost = gsub(pattern = "[$]", replacement = " ", Healthcare_cost )) %>% # Edit all regular expression
+  rename( 'ICUbeds' = 'ICU beds per 100,000 people' )# For easy use, abbreviate the variable's name
 ICUnew
-#rename the variables in the data frame that make the variable names easy to use, and arrange the variables that going to use next
-Worldnew<- 
-  Worldmeters_data%>%
-  rename(Total_Cases=`Total Cases`)%>%
-  rename(Total_Death=`Total Deaths`)%>%
-  rename(Total_Recovered ='Total Recovered')%>%
-  rename(Total_Tests = `Total Tests`)%>%
-  select(Country, Total_Cases, Total_Death,Total_Recovered,Total_Tests)
+
+# Rename the variables in the data frame for ease and clarity, and select variables for analysis
+Worldnew <- 
+  Worldmeters_data %>%
+  rename( Total_Cases = `Total Cases` ) %>%
+  rename( Total_Death = `Total Deaths` ) %>%
+  rename( Total_Recovered = 'Total Recovered' ) %>%
+  rename( Total_Tests = `Total Tests` ) %>%
+  select( Country, Total_Cases, Total_Death,Total_Recovered,Total_Tests)
 Worldnew
 
 Continent_new<-
-  Continents%>%
-  select(name, Continent)%>%
-  rename(Country = name)
+  Continents %>%
+  select( name, Continent ) %>%
+  rename( Country = name )
 Continent_new
 
 ```
 ```{r}
-#convert all characters to integers or numbers that can be used next.And join two sources together
-Combine_data<-
-  ICUnew%>%
-  inner_join(Worldnew,by="Country")%>%
-  filter(!Country == "Zambia")%>% # Zambia's data is not available now, so delete it
-  mutate(Total_Cases = parse_number(Total_Cases))%>%
-  mutate(Total_Death = parse_number(Total_Death))%>%
-  mutate(Total_Recovered = parse_number(Total_Recovered))%>%
-  mutate(Total_Tests = parse_number(Total_Tests))%>%
-  mutate(Healthcare_cost = parse_number(Healthcare_cost))
+# Convert all characters to integers or numbers that can be used in analysis, and join ICU dataset and World Meters dataset
+
+Combine_data <-
+  ICUnew %>%
+  inner_join( Worldnew, by = "Country" ) %>%
+  filter( !Country == "Zambia" ) %>% # Zambia's data is not available in this set, so we deleted it
+  mutate( Total_Cases = parse_number(Total_Cases) ) %>%
+  mutate( Total_Death = parse_number(Total_Death) ) %>%
+  mutate( Total_Recovered = parse_number(Total_Recovered) ) %>%
+  mutate( Total_Tests = parse_number(Total_Tests) ) %>%
+  mutate( Healthcare_cost = parse_number(Healthcare_cost) )
   
 Combine_data
 
@@ -107,7 +109,8 @@ Combine_data
 
 # The relationship between external factors and pre_existing medical conditions
 We are going to explore the relationship between external factors, such as healthcare cost, pre-existing medical conditions(ICU numers of 100000 people)and confirmed cases, death rate.
-### step 1:The relationship between ICU numbers, death rate (pre_existing medical conditions)
+
+### Step 1:The relationship between ICU numbers, death rate (pre_existing medical conditions)
 The reason that choose ICU numbers avaerage of countries(of 100000 people) is that large population who comfired coronavirus can cured by their own immune system, and some of the cases who are serious will be tranfered to ICU that can provide better medical service. Therefore, we assume that the numbers of ICU beds in different countries and the death rate may have relationship,and we are going to explore that using the data.
 ```{r}
 #add the new variables named death rate
