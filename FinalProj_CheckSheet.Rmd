@@ -65,9 +65,15 @@ Line 109
 
 (A) .Rmd Line number(s) for use of mulitple different geoms:  
 
+Lines 133-134, 143-145, 165-167, 192, 195
+
 (B) .Rmd Line number(s) for use of multiple aesthetics:  
 
-(C) .Rmd Line number(s) for use of layered graphics:  
+Lines 132, 133, 142, 143, 164, 165, 191, 192
+
+(C) .Rmd Line number(s) for use of layered graphics: 
+
+Lines 133-134, 143-145, 165-167, 192, 195
 
 (D) .Rmd Line number(s) for use of leaflet maps:  
 
