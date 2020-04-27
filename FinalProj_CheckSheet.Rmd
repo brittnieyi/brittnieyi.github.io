@@ -9,7 +9,6 @@ output:  html_notebook
 
 *This document is required to indicate where various requirements can be found within your Final Project Report Rmd.  You must* **indicate line numbers as they appear in your final Rmd document** *accompanying each of the following required tasks. Points will be deducted if line numbers are missing or differ signficantly from the submitted Final Rmd document.*  
 
-
 # Final Project Requirements
 
 
@@ -19,6 +18,7 @@ output:  html_notebook
 
 (A) .Rmd Line numbers where at least two different data sources are imported:  
 
+Lines 11-22 for data sources, Lines 31-51 for importing the data
 
 (B) .Rmd Line numbers for inspecting data intake:  
 
@@ -31,18 +31,22 @@ Lines 55-64
 
 (A) .Rmd Line number(s) for general data wrangling: 
 
+Lines 71, 83, 90, 101-106, 126-127, 160-161, 181-187
 
 (B) .Rmd Line number(s) for a join operation: 
 
+Line 100, 180
 
 (C) .Rmd Line number(s) for a spread or gather operation (or equivalent):
 
 
 (D) .Rmd Line number(s) for use of regular expressions: 
 
+Line 71
 
 (E) .Rmd Line number(s) for use of reduction and/or transformation functions: 
 
+Line 109
 
 (F) .Rmd Line number(s) for use of user-defined functions: 
 

@@ -105,7 +105,8 @@ Combine_data <-
   mutate( Total_Tests = parse_number(Total_Tests) ) %>%
   mutate( Healthcare_cost = parse_number(Healthcare_cost) )
   
-Combine_data
+Combine_data %>%
+  mutate(ranks = rank(ICUbeds)) # rank to see which country has the most and least amount of beds, with 1 as the least
 
 ```
 
