@@ -152,18 +152,23 @@ When looking at the previous visualization with less of a relationship, some of 
 
 ### Step 2: The relationship between average healthcare cost and total comfirmed cases.
 
-Since the tests that comfirmed the infection of CoronaVirus are expensive for most population, the countries that have higher healthcare cost may afford more tests for their population. We assume there is a relationship between total tests and healthcare cost in each countries.
+Since news reports and analysis confirmed that the testing, medical care, and treatment of CoronaVirus are expensive, we hypothesize that the countries that have higher healthcare costs may be able to afford more tests for their population. We assume there is a relationship between total tests and healthcare cost in each of the countries.
 
 ```{r}
-Health_Test_Rela<-
-  Combine_data%>%
-  select(Country, Healthcare_cost, Total_Tests)%>%
-  mutate(Total_Tests_rate = Total_Tests/100)# for better illustrate in graph, we changed the variable of total tests to the tests rate of 100 people
-ggplot(data = Health_Test_Rela, aes(x = Total_Tests_rate, y = Healthcare_cost))+
-  geom_point(aes(color = Country))
+Health_Test_Rela <-
+  Combine_data %>%
+  select( Country, Healthcare_cost, Total_Tests ) %>%
+  mutate( Total_Tests_rate = Total_Tests / 100 ) # for better visualization in the graph, we changed the variable of total tests to the tests rate of 100 people
+
+ggplot( data = Health_Test_Rela, aes(x = Healthcare_cost, y = Total_Tests_rate) ) +
+  geom_point( aes(color = Country) ) +
+  geom_line() + 
+  geom_smooth( method = lm ) + 
+  xlab("Healthcare costs") +
+  ylab("Total Tests Rate")
 ```
 
-According to the graph shown above, there is no obivious relationship between total tests rate and healthcare cost.
+According to the graph shown above, there is a slightly positive relationship between total tests rate and healthcare cost. However, there is still very high uncertainty with the visualization. In addition, when we collected the data that are used for the analysis, testing for the virus was still not widely available in certain countries, which could be contributing to the amount of variation between the data points.
 
 # The relationship between geographic factor and numbers of cases comfirmed
 
