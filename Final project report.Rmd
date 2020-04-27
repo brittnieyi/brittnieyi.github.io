@@ -170,26 +170,29 @@ ggplot( data = Health_Test_Rela, aes(x = Healthcare_cost, y = Total_Tests_rate) 
 
 According to the graph shown above, there is a slightly positive relationship between total tests rate and healthcare cost. However, there is still very high uncertainty with the visualization. In addition, when we collected the data that are used for the analysis, testing for the virus was still not widely available in certain countries, which could be contributing to the amount of variation between the data points.
 
-# The relationship between geographic factor and numbers of cases comfirmed
+# The relationship between geographic factor and numbers of cases confirmed
 
-
-For futher exploring the relationship between geographic factor(continents) and total cases comfirmed, we are going to make a graph. 
+We are going to make a graph for futher exploration of the relationship between geographic factors and total cases comfirmed.
 
 ```{r}
-Con_Case_Rela<-
-  Continent_new%>%
-  inner_join(Worldnew)%>%
-  mutate(Total_Cases = parse_number(Total_Cases))%>%
-  mutate(Total_Death = parse_number(Total_Death))%>%
-  filter(!Total_Death =="NA")%>%
-  group_by(Continent)%>%
-  summarise(Total_Cases_conti = sum(Total_Cases),
-            Total_Death_conti = sum(Total_Death))%>%
-  mutate(Deathrate_conti = Total_Death_conti/Total_Cases_conti)
-ggplot(data = Con_Case_Rela, aes(x = Deathrate_conti, y = Total_Cases_conti))+
-  geom_point(aes(color = Continent))
+Con_Case_Rela <-
+  Continent_new %>%
+  inner_join( Worldnew ) %>%
+  mutate( Total_Cases = parse_number( Total_Cases ) ) %>%
+  mutate( Total_Death = parse_number( Total_Death ) ) %>%
+  filter( !Total_Death == "NA" ) %>%
+  group_by( Continent ) %>%
+  summarise( Total_Cases_conti = sum(Total_Cases),
+             Total_Death_conti = sum(Total_Death) ) %>%
+  mutate( Deathrate_conti = Total_Death_conti / Total_Cases_conti )
 Con_Case_Rela
+
+ggplot( data = Con_Case_Rela, aes(x = Total_Cases_conti, y = Deathrate_conti) ) +
+  geom_point( aes(color = Continent) ) +
+  xlab("Total cases per continent") +
+  ylab("Total deathrate per continent") +
+  geom_smooth( method = lm )
+
 ```
 
-
-According to the graph above, we can know that there is a largeer population in Asia got comfirmed. Other total cases in each Continent are similar. However, there is a outlier which is Europe showing a really high death rate.
+According to the graph above, we can see that total cases in each continent are similar besides Asia and Europe. There is a positive relationship between number of cases and number of death rate, which was expected. It is interesting to see how continents like Africa has high deathrate and low cases, which can indecate the virus having a higher mortality rate there.
