@@ -68,11 +68,12 @@ The World Meters dataset contains 212 observations, 12 variables, and most of th
 ICUnew <-
   ICUnumbers %>%
   rename( Healthcare_cost = 'Per Capita Healthcare Cost**' ) %>% # Rename the variable for easy use
-  mutate( Healthcare_cost = gsub(pattern = "[$]", replacement = " ", Healthcare_cost )) %>% # Edit all regular expression
-  rename( 'ICUbeds' = 'ICU beds per 100,000 people' )# For easy use, abbreviate the variable's name
+  mutate( Healthcare_cost = gsub(pattern = "[$]", replacement = " ", Healthcare_cost )) %>% # Edit all regular expressions
+  rename( 'ICUbeds' = 'ICU beds per 100,000 people' )# For easy use, we abbreviated the variable's name
 ICUnew
 
 # Rename the variables in the data frame for ease and clarity, and select variables for analysis
+
 Worldnew <- 
   Worldmeters_data %>%
   rename( Total_Cases = `Total Cases` ) %>%
@@ -81,6 +82,8 @@ Worldnew <-
   rename( Total_Tests = `Total Tests` ) %>%
   select( Country, Total_Cases, Total_Death,Total_Recovered,Total_Tests)
 Worldnew
+
+# Repeat the renaming
 
 Continent_new<-
   Continents %>%
@@ -108,10 +111,13 @@ Combine_data
 
 
 # The relationship between external factors and pre_existing medical conditions
-We are going to explore the relationship between external factors, such as healthcare cost, pre-existing medical conditions(ICU numers of 100000 people)and confirmed cases, death rate.
 
-### Step 1:The relationship between ICU numbers, death rate (pre_existing medical conditions)
-The reason that choose ICU numbers avaerage of countries(of 100000 people) is that large population who comfired coronavirus can cured by their own immune system, and some of the cases who are serious will be tranfered to ICU that can provide better medical service. Therefore, we assume that the numbers of ICU beds in different countries and the death rate may have relationship,and we are going to explore that using the data.
+We are going to explore the relationship between external factors, such as healthcare cost, pre-existing medical conditions, using ICU numbers of 100000 people, confirmed cases, and death rate.
+
+### Step 1: The relationship between ICU numbers, death rate, and pre_existing medical conditions
+
+The reason that we are using these data sets is because more developed countries with larger populations are able to provide more accurate data about ICU beds, health care costs, and data about confirmed coronavirus cases. There are a few possibilities about how humans can handle COVID 19, such as having a strong immune system and recovering from the virus in isolation, or be tranfered to the ICU that can provide better medical services and care. Therefore, we hypothesize that the numbers of ICU beds avaliable and variables such as death rate in different countries may have a relationship,and we are going to explore that using the data.
+
 ```{r}
 #add the new variables named death rate
 ICU_Death_Rela<-
