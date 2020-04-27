@@ -119,28 +119,39 @@ We are going to explore the relationship between external factors, such as healt
 The reason that we are using these data sets is because more developed countries with larger populations are able to provide more accurate data about ICU beds, health care costs, and data about confirmed coronavirus cases. There are a few possibilities about how humans can handle COVID 19, such as having a strong immune system and recovering from the virus in isolation, or be tranfered to the ICU that can provide better medical services and care. Therefore, we hypothesize that the numbers of ICU beds avaliable and variables such as death rate in different countries may have a relationship,and we are going to explore that using the data.
 
 ```{r}
-#add the new variables named death rate
-ICU_Death_Rela<-
-  Combine_data%>%
-  select(ICUbeds,Total_Death,Total_Cases,Country)%>%
-  mutate(Deathrate = Total_Death/Total_Cases)
-#When we check the numers of 
-#ggplot the relationship between death rate and ICUbeds numbers in specific countries
-ggplot(data = ICU_Death_Rela, aes(x = ICUbeds, y = Deathrate))+
-  geom_point(aes(color = Country))
+# Add the new variable called death rate
+
+ICU_Death_Rela <-
+  Combine_data %>%
+  select( ICUbeds, Total_Death, Total_Cases, Country ) %>%
+  mutate( Deathrate = Total_Death / Total_Cases )
+
+# Create a visualization of the relationship between death rate and ICU bed numbers in specific countries
+
+ggplot( data = ICU_Death_Rela, aes(x = ICUbeds, y = Deathrate) ) +
+  geom_point( aes(color = Country) ) +
+  geom_smooth( method = lm ) +
+  xlab("ICU beds")
+
 ```
 
-The data is a little bit small, so there is no obivious relationship between death rate and ICU numbers average, However, if we try to exclude some outliers, that is constrain the range of ICUbed from 5 to 10(of 100000 people), we can find something
-
+There is a small number of data points due to the ICU numbers data set, which could be the reason why there is no obvious relationship between death rate and ICU numbers average. We feel that the ICU numbers data set contains accurate records, so in this analysis, we are trading a large number of data points for accuracy of the actual data. The relationship shown in the graph is positive, indicating that our hypothesis was false and that there is little relationship between ICU beds and the death rate. However, if we try to exclude some outliers, that is, to constrain the range of ICU beds from just 6 to 10, we might be able to see some form of a relationship.
 
 ```{r}
-ggplot(data = ICU_Death_Rela, aes(x = ICUbeds, y = Deathrate))+
-  geom_point(aes(color = Country))+
-  xlim(5,10)
+ggplot( data = ICU_Death_Rela, aes(x = ICUbeds, y = Deathrate) ) +
+  geom_point( aes(color = Country) ) +
+  geom_line() + 
+  geom_smooth( method = lm ) +
+  xlim( 6, 10) +
+  xlab("ICU beds")
 ```
 
-When we regulate the range of ICUbed, there is a really obviously decresing(negative) relationship between death rate and ICUbeds(rate).
-### step2: The relationship between healthcare cost average and total comfirmed cases.
+When we tighten the range of ICU bed numbers, there is a more obvious decresing relationship between death rate and ICU beds. However, this does not tell the whole story. Since we excluded multiple countries in this graph, coming to the conclusion of ICU bed number being related to deathrate has little accuracy and is not reliable. This showed us that there are lots of factors that were not considered that would be affecting our results, such as when these countries took action in quarantine orders. Since the data we used is already outdated, it also proves how important updating data and maintaining a database is when doing analysis in real life situations. 
+
+When looking at the previous visualization with less of a relationship, some of the outlier countries had a much different process in handling the virus than countries that did follow the trend that we 'forced' in the next visualization. Countries such as Spain felt the impact of the virus before the United States, and that could be why they have such a high death rate, even with more ICU bed numbers. 
+
+### Step 2: The relationship between average healthcare cost and total comfirmed cases.
+
 Since the tests that comfirmed the infection of CoronaVirus are expensive for most population, the countries that have higher healthcare cost may afford more tests for their population. We assume there is a relationship between total tests and healthcare cost in each countries.
 
 ```{r}
